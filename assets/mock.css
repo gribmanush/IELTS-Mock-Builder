@@ -1,0 +1,87 @@
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 Arial,sans-serif;color:#000;background:#fff}
+.top{height:56px;position:relative;border-bottom:1px solid #e3e3e3;background:#fff;position:sticky;top:0;z-index:30}
+.logo{position:absolute;left:16px;top:14px;font:900 29px/27px Arial Black,Arial,sans-serif;color:#e31e24;letter-spacing:-1px}
+.logo sup{font:400 6px Arial;vertical-align:top}
+.tt{position:absolute;left:141px;top:9px}.tt b{display:block}.tt div{font-size:14px;margin-top:3px}
+.topbtns{position:absolute;right:16px;top:10px;display:flex;gap:8px}
+.wrap{max-width:1100px;margin:0 auto;padding:22px 16px 80px}
+.rub{background:#f1f2ec;border:1px solid #d5d5d5;border-radius:4px;padding:12px 16px;margin-bottom:18px}
+.rub h1,.rub h2{font-size:17px;margin:0 0 4px}
+.btn{display:inline-block;background:#000;color:#fff;border:1px solid #000;padding:9px 16px;font:15px Arial;cursor:pointer;text-decoration:none;border-radius:2px}
+.btn.sec{background:#fff;color:#000;border-color:#535353}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.danger{background:#fff;color:#c00;border-color:#c00}
+.btn:disabled,.btn.dis{opacity:.4;cursor:not-allowed;pointer-events:none}
+.big{font-size:18px;padding:14px 26px}
+h2.sec{font-size:18px;margin:26px 0 10px}
+.card{border:1px solid #d5d5d5;border-radius:4px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.card h3{margin:0 0 6px;font-size:17px}
+.muted{color:#666;font-size:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.steps{display:flex;gap:0;border-bottom:2px solid #000;margin-bottom:18px;flex-wrap:wrap}
+.steps button{background:#fff;border:0;padding:10px 16px;font:15px Arial;cursor:pointer;border-bottom:4px solid transparent;margin-bottom:-2px}
+.steps button.on{font-weight:700;border-bottom-color:#418ec8}
+.steps button .bad{color:#c00;font-weight:700}
+.steps button .good{color:#1b7f3a;font-weight:700}
+label.f{display:block;font-weight:700;margin:12px 0 4px;font-size:14px}
+input.t,textarea.t,select.t{width:100%;font:15px/1.45 Arial;border:1px solid #535353;border-radius:3px;padding:7px 9px;outline:none;background:#fff}
+input.t:focus,textarea.t:focus,select.t:focus{border-color:#418ec8;box-shadow:0 0 0 1px #418ec8}
+textarea.t{resize:vertical}
+.hint{font-size:13px;color:#555;margin-top:4px}
+.partbox{border:1px solid #535353;border-radius:4px;margin-bottom:22px}
+.partbox>.ph{background:#f1f2ec;padding:10px 14px;border-bottom:1px solid #d5d5d5;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.partbox>.ph b{font-size:16px}
+.partbox>.pb{padding:12px 14px}
+.cnt{font-size:13px;font-weight:700;padding:3px 8px;border-radius:10px;background:#eee}
+.cnt.ok{background:#e3f4e8;color:#1b7f3a}.cnt.no{background:#fde8e8;color:#c00}
+.grp{border:1px dashed #9a9a9a;border-radius:4px;padding:10px 12px;margin:12px 0;background:#fcfcfc}
+.grp .gh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.grp .gh b{font-size:15px}
+.addrow{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.mq{border-left:3px solid #d5d5d5;padding:4px 0 4px 10px;margin:10px 0}
+.thumb{max-width:260px;max-height:160px;display:block;margin-top:6px;border:1px solid #ddd}
+.ans{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid #eee}
+.ans .n{font-weight:700;border:2px solid #418ec8;text-align:center;padding:2px 0;height:28px}
+.ans .actx{font-size:13px;color:#555;margin-bottom:5px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip{background:#eef4fa;border:1px solid #418ec8;border-radius:12px;padding:2px 4px 2px 10px;font-size:14px;display:inline-flex;align-items:center;gap:4px}
+.chip button{border:0;background:none;cursor:pointer;font-size:15px;color:#555}
+.chips input.chipin{width:220px;font:14px Arial;padding:5px 7px;border:1px solid #535353;border-radius:3px}
+.chk{display:inline-flex;align-items:center;gap:5px;font-size:14px;margin-left:8px}
+.check li{margin:4px 0}
+.check .ok{color:#1b7f3a}.check .no{color:#c00}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:80}
+.mbox{background:#fff;width:min(820px,94vw);max-height:92vh;overflow:auto;border-radius:4px;padding:20px 22px}
+.mbox h3{margin:0 0 10px}
+.ocrimg{max-width:100%;max-height:340px;border:1px solid #ddd;display:block;margin:8px 0}
+.prog{height:8px;background:#eee;border-radius:4px;overflow:hidden;margin:8px 0}.prog div{height:100%;width:0;background:#418ec8;transition:width .2s}
+.save{position:fixed;right:16px;bottom:12px;font-size:13px;color:#555;background:#fff;border:1px solid #ddd;padding:4px 10px;border-radius:12px}
+.howto ol{margin:6px 0 0 18px;padding:0}.howto li{margin:6px 0}
+.mrow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.score{color:#1b7f3a;font-size:13px;font-weight:700}
+.preview{border:1px solid #d5d5d5;padding:10px 14px;margin-top:8px;background:#fff;line-height:24px}
+.preview input.gap,.preview select.gap{pointer-events:none}
+@media (max-width:640px){.tt{display:none}}
+.preview table{border-collapse:collapse;margin:8px 0}.preview td,.preview th{border:1px solid #535353;padding:4px 10px}
+.chk input{width:auto;margin:0}
+/* buttons inside pop-ups (OCR window) */
+.mbox .btn{background:#000;color:#fff;border:1px solid #000;padding:9px 16px;font:15px Arial}
+.mbox .btn.sm{padding:5px 10px;font-size:13px}
+.mbox .btn.sec{background:#fff;color:#000;border-color:#535353}
+.mbox .btn:disabled{opacity:.5}
+
+/* mock card section tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.tile{border:1px solid #d5d5d5;border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.tile .tl{font-weight:700;font-size:17px}
+.tile .ts{font-size:13px;color:#555}
+.tile.ready{border-color:#1b7f3a;background:#f3faf5}
+.tile.notready{background:#fafafa}
+.tile .btn.start{background:#1b7f3a;border-color:#1b7f3a;font-weight:700;font-size:16px;padding:10px 18px;margin-top:4px}
+.tile .btn.start:hover{background:#146530}
+.tile .nr{color:#c00;font-weight:700;font-size:14px;margin-top:4px}
+.tile .why{font-size:13px;color:#555}
+.tile .last{font-size:13px;color:#1b7f3a;font-weight:700}
+.tile .last.muted{color:#777;font-weight:400}
+@media (max-width:760px){.tiles{grid-template-columns:1fr}}

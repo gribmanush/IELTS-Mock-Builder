@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IELTS Mock Builder</title>
+<link rel="stylesheet" href="assets/mock.css?v=3">
+</head>
+<body>
+<div class="top"><div class="logo">IELTS<sup>™</sup></div><div class="tt"><b>Mock Builder</b><div>Make your own computer-delivered practice tests</div></div></div>
+<div class="wrap">
+  <div class="rub">
+    <h1>Build your own IELTS Academic mock test</h1>
+    <p style="margin:0">Type in your own passages and questions, upload the listening audio, and set the correct answers. Then take the test on the same screen layout as IELTS on computer, with automatic marking for Listening and Reading.</p>
+  </div>
+  <div class="card howto">
+    <h3>How it works</h3>
+    <ol>
+      <li><b>Name your mock.</b></li>
+      <li><b>Listening:</b> upload the recording, then add questions to Parts 1–4. Each part must have exactly 10 questions, as in the real test.</li>
+      <li><b>Reading:</b> type or <b>scan a photo</b> of each of the 3 passages, then add their questions. The total must be exactly 40.</li>
+      <li><b>Writing:</b> type the Task 1 and Task 2 questions. You can add a chart image for Task 1.</li>
+      <li><b>Answers:</b> set the correct answer for every question. You can accept several answers and choose whether capital letters matter.</li>
+      <li><b>Take the test.</b> When a section is finished, its box turns green with a <b>▶ Start</b> button. Press it to begin that test.</li>
+    </ol>
+    <p class="muted" style="margin:10px 0 0">The question types, numbering and timing are fixed to the IELTS format, so every mock looks and works like the real exam. Your mocks are saved in this browser automatically. Use <b>Export</b> to keep a backup file or share a mock, and <b>Import</b> to load one.</p>
+  </div>
+  <div class="row" style="margin:20px 0 6px">
+    <button class="btn big" id="create">Create your own mock test</button>
+    <label class="btn sec">Import a mock file<input type="file" id="imp" accept=".json,application/json" hidden></label>
+  </div>
+  <h2 class="sec">Your mock tests</h2>
+  <div id="list"><p class="muted">Loading…</p></div>
+</div>
+<script src="assets/spec.js?v=1"></script>
+<script src="assets/store.js?v=1"></script>
+<script>
+(function(){
+  var list=document.getElementById('list'),scores={};
+  try{scores=JSON.parse(localStorage.getItem('mock_scores'))||{};}catch(e){}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function render(){
+    Store.list().then(function(ms){
+      if(!ms.length){list.innerHTML='<p class="muted">No mock tests yet. Press <b>Create your own mock test</b> to make your first one.</p>';return;}
+      list.innerHTML='';
+      ms.forEach(function(m){
+        var v=validateMock(m),c=document.createElement('div');c.className='card';
+        var info={listening:['Listening','About 30 minutes · audio plays once','listening'],reading:['Reading','60 minutes · 3 passages','reading'],writing:['Writing','60 minutes · 2 tasks','writing']};
+        function tile(sk){var ok=!v[sk].length,s=scores[m.id+'_'+sk],I=info[sk];
+          return '<div class="tile '+(ok?'ready':'notready')+'"><div class="tl">'+I[0]+'</div><div class="ts">'+I[1]+'</div>'+
+            (ok?'<a class="btn start" href="take.html?id='+m.id+'&s='+sk+'">▶ Start '+I[0]+' test</a>'+(s?'<div class="last">Last score: '+s.score+' / '+s.total+'</div>':(sk==='writing'?'<div class="last muted">Not marked automatically</div>':'<div class="last muted">Not taken yet</div>')):
+            '<div class="nr">Not ready yet</div><div class="why">'+esc(v[sk][0])+(v[sk].length>1?' (+'+(v[sk].length-1)+' more)':'')+'</div><a class="btn sec sm" href="builder.html?id='+m.id+'&step='+sk+'">Finish building '+I[0]+'</a>')+'</div>';}
+        c.innerHTML='<div class="mrow"><div><h3>'+esc(m.name)+'</h3><div class="muted">Last edited '+new Date(m.updated).toLocaleString()+'</div></div>'+
+          '<div class="row"><a class="btn sm sec" href="builder.html?id='+m.id+'">Edit mock</a><button class="btn sm sec" data-a="dup">Duplicate</button><button class="btn sm sec" data-a="exp">Export</button><button class="btn sm danger" data-a="del">Delete</button></div></div>'+
+          '<div class="tiles">'+tile('listening')+tile('reading')+tile('writing')+'</div>';
+        c.addEventListener('click',function(e){
+          var a=e.target.dataset.a;if(!a)return;
+          if(a==='del'&&confirmBox('Delete "'+m.name+'"? This cannot be undone.')){Store.remove(m.id).then(function(){if(m.listening.audioId)Store.delBlob(m.listening.audioId);render();});}
+          if(a==='exp')Store.exportMock(m).then(function(b){var x=document.createElement('a');x.href=URL.createObjectURL(b);x.download=m.name.replace(/[^\w\- ]+/g,'')+'.ielts-mock.json';x.click();});
+          if(a==='dup')Store.exportMock(m).then(function(b){return b.text();}).then(function(t){var o=JSON.parse(t);o.name=m.name+' (copy)';return Store.importMock(o);}).then(render);
+        });
+        list.appendChild(c);
+      });
+    }).catch(function(e){list.innerHTML='<p class="muted">Could not open saved mocks: '+esc(e.message)+'</p>';});
+  }
+  function confirmBox(msg){return window.confirm(msg);}
+  document.getElementById('create').onclick=function(){location.href='builder.html?new=1';};
+  document.getElementById('imp').onchange=function(e){var f=e.target.files[0];if(!f)return;f.text().then(function(t){return Store.importMock(JSON.parse(t));}).then(function(m){render();}).catch(function(err){alert('Could not import: '+err.message);});e.target.value='';};
+  render();
+})();
+</script>
+</body>
+</html>

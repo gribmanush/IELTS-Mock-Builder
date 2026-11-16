@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IELTS mock test</title>
+<link rel="stylesheet" href="assets/player.css?v=1">
+</head>
+<body>
+<script src="assets/spec.js?v=1"></script>
+<script src="assets/store.js?v=1"></script>
+<script src="assets/compile.js?v=1"></script>
+<script>
+window.IELTS_MOCK_LOAD=function(ok,fail){
+  var P=new URLSearchParams(location.search),id=P.get('id'),s=P.get('s');
+  Store.get(id).then(function(m){
+    if(!m)return fail('This mock test could not be found in this browser.');
+    var data=compileMock(m,s);
+    if(s!=='listening')return ok({name:m.name,data:data});
+    if(!m.listening.audioId)return fail('This mock has no listening audio yet. Add it in the builder first.');
+    Store.getBlob(m.listening.audioId).then(function(b){
+      if(!b)return fail('The audio file for this mock is missing. Upload it again in the builder.');
+      ok({name:m.name,data:data,audioUrl:URL.createObjectURL(b)});
+    });
+  }).catch(function(e){fail('Could not open the saved mocks: '+e.message);});
+};
+</script>
+<script src="assets/player.js?v=1"></script>
+</body>
+</html>
